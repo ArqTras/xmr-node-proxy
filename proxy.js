@@ -9,9 +9,9 @@ const async = require('async');
 const support = require('./lib/support.js')();
 global.config = require('./config.json');
 
-const PROXY_VERSION = "0.19.2";
-const DEFAULT_ALGO      = [ "rx/0" ];
-const DEFAULT_ALGO_PERF = { "rx/0": 1, "rx/loki": 1 };
+const PROXY_VERSION = "0.19.3";
+const DEFAULT_ALGO      = [ "rx/arq"  ];
+const DEFAULT_ALGO_PERF = { "rx/arq": 1};
 
 /*
  General file design/where to find things.
@@ -947,6 +947,7 @@ function Miner(id, params, ip, pushMessage, portData, minerSocket) {
     this.difficulty = portData.diff;
     this.connectTime = Date.now();
 
+
     if (!defaultPools.hasOwnProperty(portData.coin) || !is_active_pool(defaultPools[portData.coin])) {
         for (let poolName in activePools){
             if (activePools.hasOwnProperty(poolName)){
@@ -959,6 +960,7 @@ function Miner(id, params, ip, pushMessage, portData, minerSocket) {
             }
         }
     }
+
     if (!this.pool) this.pool = defaultPools[portData.coin];
 
     if (login_diff_split.length === 2) {
